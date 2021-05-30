@@ -1,12 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Song } from '../models/song.interface';
+import { FirestoreService } from '../services/data/firestore.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
+  public songList: Observable<Song[]>
+  constructor(
+    private firestoreService: FirestoreService
+  ) { }
 
-  constructor() {}
+  ngOnInit() {
+    this.songList = this.firestoreService.getSongList();
+  }
+  
 
 }
